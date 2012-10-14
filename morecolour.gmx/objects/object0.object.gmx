@@ -26,14 +26,15 @@
           <argument>
             <kind>1</kind>
             <string>circles = 0
-MAXcircles = 10
+MAXcircles = 100
 backgroundWait = 10*30
 for(i = 0; i &lt;  MAXcircles; i+= 1)
 {
     circleX[i] = 0
     circleY[i] = 0
-    circleSize[i] = 0
+    circleSize[i] = 1
     circleColor[i] = c_red
+    circleAlpha[i] = 1
 }
 
 timer = 0
@@ -66,12 +67,18 @@ if mouse_check_button_pressed(mb_left)
     circleY[circles mod MAXcircles] = mouse_y
     circleSize[circles mod MAXcircles] = 1
     circleColor[circles mod MAXcircles] = merge_color(random(255),random(255),random(255))
+    circleAlpha[circles mod MAXcircles] = 1
+    
     circles = circles + 1
+    for(i = 0; i &lt; min(circles-1,MAXcircles-1); i+=1)
+    {
+        circleAlpha[i] = circleAlpha[i] - 1/MAXcircles
+    }
 }
 
 last = circles mod MAXcircles
 if last = 0 and circles &gt; 0
-   last = MAXcircles-1
+   last = MAXcircles
 
 if mouse_check_button(mb_left)
 {
@@ -80,9 +87,14 @@ if mouse_check_button(mb_left)
 
 for(i = 0; i &lt; min(circles-1,MAXcircles-1); i+=1)
 {
-    circleX[i] += (1/circleX[i] - circleX[last-1])/100
-    circleY[i] += (1/circleY[i] - circleY[last-1])/100
+    if (circleX[i] - circleX[last-1] &lt;&gt; 0)
+         circleX[i] += (1/(circleX[i] - circleX[last-1]))*circleSize[last-1]
+    if (circleY[i] - circleY[last-1] &lt;&gt; 0)
+       circleY[i] += (1/(circleY[i] - circleY[last-1]))*circleSize[last-1]
 }
+
+//if mouse_check_button_released(mb_left)
+//     show_message(string(circles) + " X: " + string(circleX[last-1]) + " Y: " + string(circleY[last-1]) + " Size: " + string(circleSize[last-1]))
 
 
 
@@ -109,7 +121,8 @@ timer+=1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>col1 = merge_color(c_white,c_black,sin(timer/backgroundWait*pi)/2 + 1/2)
+            <string>
+col1 = merge_color(c_white,c_black,sin(timer/backgroundWait*pi)/2 + 1/2)
 col2 = merge_color(c_white,c_black,cos(timer/backgroundWait*pi)/2 + 1/2)
 draw_rectangle_color(0,0,room_width,room_height,col1,col1,col2,col2,false)
 </string>
@@ -133,10 +146,17 @@ draw_rectangle_color(0,0,room_width,room_height,col1,col1,col2,col2,false)
           <argument>
             <kind>1</kind>
             <string>for(i = 0; i &lt; min(circles,MAXcircles); i+=1)
-{
+{   
+    //draw_set_alpha(((i+1)/(circles mod MAXcircles + 1) mod 1))
+    //if (circles mod MAXcircles = 0)
+    //   draw_set_alpha(i/MAXcircles)
+    draw_set_alpha(circleAlpha[i])
     draw_set_color(circleColor[i])
     draw_circle(circleX[i],circleY[i],circleSize[i],false)
 }
+draw_set_alpha(1)
+
+draw_text(0,10,string(circles))
 </string>
           </argument>
         </arguments>
