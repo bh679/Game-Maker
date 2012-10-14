@@ -7,12 +7,14 @@
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
   <bbox_left>0</bbox_left>
-  <bbox_right>0</bbox_right>
+  <bbox_right>56</bbox_right>
   <bbox_top>0</bbox_top>
-  <bbox_bottom>0</bbox_bottom>
+  <bbox_bottom>56</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroup>0</TextureGroup>
   <For3D>0</For3D>
-  <frames/>
+  <frames>
+    <frame index="0">images\sprite0_0.png</frame>
+  </frames>
 </sprite>
