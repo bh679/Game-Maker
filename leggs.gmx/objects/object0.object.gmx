@@ -29,14 +29,18 @@
 height = 10
 _speed = 2
 
-legs = 1
+legs = 2
 legMAXlength = 30
 for(i = 0; i &lt; legs; i+=1)
 {
     legDown[i] = i mod 2
     legLength[i] = 20
     legX[i] = x
-    legY[i] = y + legLength
+    legY[i] = y + legLength + legMAXlength*(legDown[i])
+    legXTarget[i] = x
+    legYTarget[i] = y
+    legLastX[i] = x
+    legLastY[i] = y
 }
 </string>
           </argument>
@@ -77,19 +81,24 @@ for(i = 0; i &lt; legs; i+=1)
     if point_distance(x,0,legX[i],0) &gt; legMAXlength
     {
         legDown[i] = !legDown[i]
+        legiSetTarget(x,y+20*(hspeed/abs(hspeed)))
     }
     
     //legg up
     if !legDown[i] and hspeed != 0
     {
+    
         //leg behind
-        if legX[i] &lt; x
-           legY[i] -= 1*hspeed/(abs(hspeed))
-        //leg infront
-        if legX[i] &gt; x
-           legY[i] += 1*hspeed/(abs(hspeed))
+        if legX[i] - legXTarget[i] &lt; 0
+           legY[i] = legLastY[i]+(legYTarget[i] - legLastY[i])*((legLastX[i]-legX[i])/(legLastX[i]-legXTarget[i]))
+        else
+            legiSetTarget(x+legMAXlength,y+30*(hspeed/abs(hspeed)))
+       
         legX[i] += hspeed*2
     }
+    
+    legXTarget[i] += hspeed
+    legYTarget[i] += vspeed
 }
 </string>
           </argument>
@@ -113,10 +122,20 @@ for(i = 0; i &lt; legs; i+=1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_rectangle(x-width,y-height,x+width,y+height,false)
+            <string>
+draw_set_color(c_black)
+draw_rectangle(x-width,y-height,x+width,y+height,false)
 
 for(i = 0; i &lt; legs; i+= 1)
+{
       draw_line(x,y,legX[i],legY[i])
+}
+
+draw_circle(legX[0],legY[0],1,false)
+draw_set_color(c_red)
+draw_circle(legXTarget[0],legYTarget[0],1,false)
+draw_set_color(c_green)
+draw_circle(legLastX[0],legLastY[0],1,false)
 </string>
           </argument>
         </arguments>

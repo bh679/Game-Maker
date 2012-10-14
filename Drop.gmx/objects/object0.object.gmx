@@ -25,10 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>radius = room_height /3
+            <string>//os_lock_orientation = true
+
+radius = room_height /3
 centerx = room_width/2
 centery = room_height/2
-_gravity = 9.8 *2
+_gravity = 9.8
 
 balls = 1
 ballSize = 10
@@ -70,6 +72,7 @@ difference = 0
             <string>for(i = 0; i &lt; balls; i += 1)
 {
     
+    counter = 0
     //modulise speed
     if ballDirection[i] mod 360 &lt; 0
        ballDirection[i] = ballDirection[i] mod 360 + 360
@@ -77,6 +80,7 @@ difference = 0
     ///break down speed
     _hspeed = lengthdir_x(ballSpeed[i],ballDirection[i])
     _vspeed = lengthdir_y(ballSpeed[i],ballDirection[i])
+    
     
     //appy gravity
     _vspeed += _gravity * ballSize * ballMass
@@ -105,7 +109,6 @@ difference = 0
     {
         tangent = point_direction(centerx,centery,ballx[i],bally[i]) + 90
         Collision(i,tangent)
-        counter = 0
         while (centerDistance &gt; radius and counter &lt; 6)
         {
             //apply speed
@@ -135,7 +138,7 @@ difference = 0
     bally[i] += _vspeed * 2
     
     
-    ballSpeed[i] = point_distance(0,0,_hspeed,_vspeed)
+    ballSpeed[i] = point_distance(0,0,_hspeed,_vspeed) - counter/(ballSpeed[i]*2+1)
     
     
 }
@@ -286,6 +289,19 @@ draw_line(x - lengthdir_x(radius,tangent),y - lengthdir_y(radius,tangent),x + le
 x = centerx + lengthdir_x(-radius,tangent-90)
 y = centery + lengthdir_y(-radius,tangent-90)
 draw_line(x - lengthdir_x(radius,tangent),y - lengthdir_y(radius,tangent),x + lengthdir_x(radius,tangent),y + lengthdir_y(radius,tangent))
+
+draw_set_color(c_white)
+
+/*tiltx = YoYo_GetTiltX()
+tilty = YoYo_GetTiltX()
+tiltz = YoYo_GetTiltX()
+
+draw_text(0,00,"X: " + string(tiltx))
+draw_text(0,10,"T: " + string(tilty))
+draw_text(0,20,"Z: " + string(tiltz))
+
+draw_set_color(c_green)
+draw_circle(tiltx*room_width/2,abs(tilty)*room_height/2,30,false)*/
 
 /*draw_set_color(c_green)
 tangent = point_direction(centerx,centery,mouse_x,mouse_y) + 90

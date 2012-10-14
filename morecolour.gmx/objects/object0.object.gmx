@@ -59,7 +59,8 @@ timer = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if mouse_check_button_pressed(mb_left)
+            <string>
+if mouse_check_button_pressed(mb_left)
 {
     circleX[circles mod MAXcircles] = mouse_x
     circleY[circles mod MAXcircles] = mouse_y
@@ -68,18 +69,19 @@ timer = 0
     circles = circles + 1
 }
 
+last = circles mod MAXcircles
+if last = 0 and circles &gt; 0
+   last = MAXcircles-1
+
 if mouse_check_button(mb_left)
 {
-    i = circles mod MAXcircles
-    if i = 0
-       i = MAXcircles-1
-    circleSize[i-1] += sqrt(sqrt(circleSize[i-1]))*5
+    circleSize[last-1] += sqrt(sqrt(circleSize[last-1]))*5
 }
 
-for(i = 0; i &lt; min(circles,MAXcircles); i+=1)
+for(i = 0; i &lt; min(circles-1,MAXcircles-1); i+=1)
 {
-    draw_set_color(circleColor[i])
-    draw_circle(circleX[i],circleY[i],circleSize[i],false)
+    circleX[i] += (1/circleX[i] - circleX[last-1])/100
+    circleY[i] += (1/circleY[i] - circleY[last-1])/100
 }
 
 
