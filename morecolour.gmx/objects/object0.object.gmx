@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>circles = 0
-MAXcircles = 100
+MAXcircles = 10
 backgroundWait = 10*30
 for(i = 0; i &lt;  MAXcircles; i+= 1)
 {
@@ -87,10 +87,17 @@ if mouse_check_button(mb_left)
 
 for(i = 0; i &lt; min(circles-1,MAXcircles-1); i+=1)
 {
-    if (circleX[i] - circleX[last-1] &lt;&gt; 0)
-         circleX[i] += (1/(circleX[i] - circleX[last-1]))*circleSize[last-1]
-    if (circleY[i] - circleY[last-1] &lt;&gt; 0)
-       circleY[i] += (1/(circleY[i] - circleY[last-1]))*circleSize[last-1]
+    if i &lt;&gt; last-1
+    {
+       _speed = -power(circleSize[last-1],2)/(max(point_distance(circleX[i],circleY[i],circleX[last-1],circleY[last-1]),1)*2)//-10/(point_distance(circleX[i],circleY[i],circleX[last-1],circleY[last-1])*circleSize[last-1])
+       _direction = point_direction(circleX[i],circleY[i],circleX[last-1],circleY[last-1])
+        
+        xspeed = lengthdir_x(_speed,_direction)
+        yspeed = lengthdir_y(_speed,_direction)
+        
+        circleX[i] += xspeed//(1/(circleX[i] - circleX[last-1]) + (1/(circleY[i] - circleY[last-1])))*circleSize[last-1]
+        circleY[i] += yspeed//(1/(circleX[i] - circleX[last-1]) + (1/(circleY[i] - circleY[last-1])))*circleSize[last-1]
+    }
 }
 
 //if mouse_check_button_released(mb_left)
@@ -145,7 +152,7 @@ draw_rectangle_color(0,0,room_width,room_height,col1,col1,col2,col2,false)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>for(i = 0; i &lt; min(circles,MAXcircles); i+=1)
+            <string>for(i = 0; i &lt; min(circles,MAXcircles - 1); i+=1)
 {   
     //draw_set_alpha(((i+1)/(circles mod MAXcircles + 1) mod 1))
     //if (circles mod MAXcircles = 0)
