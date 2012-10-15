@@ -73,7 +73,7 @@ if mouse_check_button_pressed(mb_left)
     for(i = 0; i &lt; min(circles-1,MAXcircles-1); i+=1)
     {
         circleAlpha[i] = circleAlpha[i] - 1/MAXcircles
-    }
+    }   
 }
 
 last = circles mod MAXcircles
@@ -85,7 +85,7 @@ if mouse_check_button(mb_left)
     circleSize[last-1] += sqrt(sqrt(circleSize[last-1]))*5
 }
 
-for(i = 0; i &lt; min(circles-1,MAXcircles-1); i+=1)
+for(i = 0; i &lt; min(circles-1,MAXcircles); i+=1)
 {
     if i &lt;&gt; last-1
     {
@@ -152,7 +152,7 @@ draw_rectangle_color(0,0,room_width,room_height,col1,col1,col2,col2,false)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>for(i = 0; i &lt; min(circles,MAXcircles - 1); i+=1)
+            <string>for(i = 0; i &lt; min(circles,MAXcircles); i+=1)
 {   
     //draw_set_alpha(((i+1)/(circles mod MAXcircles + 1) mod 1))
     //if (circles mod MAXcircles = 0)
