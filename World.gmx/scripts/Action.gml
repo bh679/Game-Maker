@@ -33,7 +33,15 @@ switch(argument0)
         //set new target
         if waitTimer <= 0
         {
-            newTarget()
+            if leader = false or distance_to_object(_other) < SIGHT//sprite_height*image_yscale/3+sprite_width*image_xscale/3
+            {
+                if clan != -1
+                    newTarget(walkToRange/2)
+                else
+                    newTarget()
+            }
+            else
+                newTarget(leader.x,leader.y)
             waitTimer = -1
             return false
         }
@@ -57,59 +65,61 @@ switch(argument0)
         Action(WAIT)
         break;
     case ATSOMEONE:
-        //both in same clan, who cares distance
-        if clan = _other.clan and clan != -1 and isLeader = false
+        if instance_exists(_other)
         {
-            newTarget(leader.x,leader.y)
-            Action(WAIT)
-        }
-        //reached someone not both in same clan
-        else if distance_to_object(_other) < sprite_height*image_yscale/3+sprite_width*image_xscale/3
-        {
-            //found a follower
-            if clan = _other.clan and isLeader = true
+            //both in same clan, who cares distance
+            if clan = _other.clan and clan != -1 and isLeader = false
             {
-                _other.leader = id
-                _other.isLeader = false
+                
             }
-            //kill
-            else if state = AGRESSIVE
-                {with(other){ createDead(MAN) instance_destroy()}}
-            //make friends
-            else if state = FRIENDLY
+            //reached someone not both in same clan
+            else if distance_to_object(_other) < InReach
             {
-                //invite to clan
-                if _other.clan = -1
+                //found a follower
+                if clan = _other.clan and isLeader = true
                 {
-                    //make new clan
-                    if clan = -1
-                    {
-                        clan = floor(random(CLANS))
-                        isLeader = true
-                        leader = false
-                    }
-                    _other.clan = clan
                     _other.leader = id
-                //join clan
-                }else
+                    _other.isLeader = false
+                }
+                //kill
+                else if state = AGRESSIVE and clan != _other.clan
+                    {with(_other){ createDead(MAN) instance_destroy()}}
+                //make friends
+                else if state = FRIENDLY
                 {
-                    //leader = _other
-                    if clan = -1 and _other.clan = -1
+                    //invite to clan
+                    if _other.clan = -1
                     {
-                        clan = floor(random(CLANS))
-                        isLeader = true
-                        leader = false
+                        //make new clan
+                        if clan = -1
+                        {
+                            clan = floor(random(CLANS))
+                            isLeader = true
+                            leader = false
+                        }
                         _other.clan = clan
                         _other.leader = id
-                    }else if clan = -1 
+                    //join clan
+                    }else
                     {
-                        clan = _other.clan
-                        leader = _other
-                    }
-                    else
-                    {
-                        _other.clan = clan
-                        _other.leader = id
+                        //leader = _other
+                        if clan = -1 and _other.clan = -1
+                        {
+                            clan = floor(random(CLANS))
+                            isLeader = true
+                            leader = false
+                            _other.clan = clan
+                            _other.leader = id
+                        }else if clan = -1 
+                        {
+                            clan = _other.clan
+                            leader = _other
+                        }
+                        else
+                        {
+                            _other.clan = clan
+                            _other.leader = id
+                        }
                     }
                 }
             }

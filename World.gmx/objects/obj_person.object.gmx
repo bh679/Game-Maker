@@ -28,10 +28,11 @@
             <string>targetx = x
 targety = y
 WALKspeed = 1
+scale = GAMESCALE
 walkToRange = 100
 waitTimer = -1
 SIGHT = 75
-scale = GAMESCALE
+InReach = 20//sprite_height*scale/3+sprite_width*scale/3
 action = WALK
 closestTargetX = x+lengthdir_x(SIGHT,direction)
 closestTargetY = y+lengthdir_y(SIGHT,direction)
@@ -41,16 +42,24 @@ leader = false
 speed = WALKspeed
 
 clan = -1
-state = round(random(3)) mod 3
+passiveState = round(random(3)) mod 3
+state = passiveState
 
 _other = instance_nearest(x,y,obj_person)
 
-if state = AGRESSIVE
+if passiveState = AGRESSIVE
     image_blend = (c_red)
-else if state = FRIENDLY
+else if passiveState = FRIENDLY
     image_blend = (c_blue)
-else if state = NOTHING
+else if passiveState = NOTHING
     image_blend = (c_black)
+
+if state = AGRESSIVE
+    image_blend2 = (c_red)
+else if state = FRIENDLY
+    image_blend2 = (c_blue)
+else if state = NOTHING
+    image_blend2 = (c_black)
     
     
 </string>
@@ -81,7 +90,10 @@ with(obj_person)
     if leader = global.deadID
     {
         if global.deadID.isLeader
+        {
             isLeader = true
+            leader = false
+        }
         else
             leader = global.deadID.leader
         newTarget()
@@ -112,6 +124,10 @@ with(obj_person)
             <kind>1</kind>
             <string>Action(WALK)
 
+if (leader != false and instance_exists(leader))
+{
+    clan = leader.clan
+}
 </string>
           </argument>
         </arguments>
@@ -158,14 +174,13 @@ instance_destroy()
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-    if leader != false and instance_exists(leader)
-    {
-        draw_set_color(c_black)
-        draw_arrow(x,y,leader.x,leader.y,10)
-        draw_set_color(c_yellow)
-        if isLeader draw_arrow(x+1,y+1,leader.x+1,leader.y+1,10)
-    }
+            <string>if leader != false and instance_exists(leader) and global.debuggin
+{
+    draw_set_color(c_black)
+    draw_arrow(x,y,leader.x,leader.y,10)
+    draw_set_color(c_yellow)
+    if isLeader draw_arrow(x+1,y+1,leader.x+1,leader.y+1,10)
+}
 
 if insideView()
 {
@@ -174,15 +189,23 @@ if insideView()
     image_yscale = scale
     
     
-    draw_set_color(chooseColour(clan))
-    draw_set_alpha(0.3)
-    draw_circle(x,y,25,false)
-    draw_set_alpha(1)
-    draw_set_color(c_black)
-    if isLeader
-        draw_circle(x,y,25,true)
+    if global.debuggin
+    {
+        draw_set_color(chooseColour(clan))
+        draw_set_alpha(0.3)
+        draw_circle(x,y,25,false)
+        draw_set_alpha(1)
+        draw_set_color(c_black)
+        if isLeader
+            draw_circle(x,y,25,true)
+    }
     draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
-    draw_text(x,y+20,string(clan))
+    if global.debuggin
+    {
+        draw_set_color(image_blend2)
+        draw_circle(x+10,y-10,5,false)
+        draw_text(x,y+20,string(clan))
+    }
 }
 </string>
           </argument>

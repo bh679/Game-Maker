@@ -7,11 +7,11 @@ _other = instance_nth_nearest(x,y,obj_person,2)
 if (/*furthestY = closestTargetY and furthestX = closestTargetX and */distance_to_object(_other) < SIGHT)
 {
     
-    var people;
+    var people, othertarget;
     people = instance_number(obj_person)
    // closestTargetX = furthestX
     //closestTargetY = furthestY
-    
+    othertarget = _other
     for(i = 2; i < people-1; i += 1)
     {
         _other = instance_nth_nearest(x,y,obj_person,i)
@@ -19,11 +19,13 @@ if (/*furthestY = closestTargetY and furthestX = closestTargetX and */distance_t
         and (!collision_line(x,y,_other.x,_other.y,obj_tree,1,0)) 
         and (clan = -1 or clan != _other.clan)
         {
-            //show_message(string(distance_to_object(_other)))
+            othertarget = _other
             closestTargetX = _other.x
             closestTargetY = _other.y
             if state != NOTHING
                 newTarget(_other.x,_other.y)
+        othertarget = _other
         }
     }
+    _other = othertarget
 }
