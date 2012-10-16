@@ -3,24 +3,63 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\Instance Nearest Extended</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprites name="person">
       <sprite>sprites\spr_person</sprite>
+      <sprite>sprites\spr_person_dead</sprite>
+      <sprite>sprites\spr_grave</sprite>
+    </sprites>
+    <sprites name="scene">
+      <sprite>sprites\spr_tree</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\tile_grass</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <scripts name="AI">
+      <script>scripts\Action.gml</script>
+      <script>scripts\newTarget.gml</script>
+      <script>scripts\NearBody.gml</script>
+      <script>scripts\NearSomeone.gml</script>
+    </scripts>
+    <script>scripts\insideRoom.gml</script>
+    <script>scripts\insideView.gml</script>
+    <script>scripts\createDead.gml</script>
+    <script>scripts\CollisionWith.gml</script>
+    <script>scripts\InBox.gml</script>
+    <script>scripts\Collisions.gml</script>
+    <script>scripts\chooseColour.gml</script>
+  </scripts>
   <objects name="objects">
-    <object>objects\object</object>
+    <object>objects\obj_tree</object>
+    <object>objects\obj_dead</object>
+    <object>objects\obj_draw</object>
+    <object>objects\obj_control</object>
     <object>objects\obj_person</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
   </rooms>
+  <constants number="12">
+    <constant name="ATSOMEONE">"at someone"</constant>
+    <constant name="FRIENDLY">2</constant>
+    <constant name="NOTHING">0</constant>
+    <constant name="AGRESSIVE">1</constant>
+    <constant name="CLANS">10</constant>
+    <constant name="ATTARGET">"at target"</constant>
+    <constant name="BURY">"bury"</constant>
+    <constant name="GAMESCALE">3</constant>
+    <constant name="MAN">"man"</constant>
+    <constant name="WAITING">"waiting"</constant>
+    <constant name="WAIT">"wait"</constant>
+    <constant name="WALK">"walk"</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>

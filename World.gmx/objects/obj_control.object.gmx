@@ -25,25 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>timer = 0
-wavesOnScreen = 2
-waveSpeed = 1
-waveHeight = 20
-waterheight = room_height/2
-waterAlpha = 0.5
-waterColor = c_blue
-waterDensity = 4
-detail = false
-rippleSize = 30
+            <string>mouseLast_x = mouse_x
+mouseLast_y = mouse_y
+moveSpeed = 1
 
-_gravity = 0.98
-
-blockx = room_width/2
-blocky = room_height
-blockyspeed = 0
-blockheight = 40
-blockwidth = 20
-blockboyance = 2
+MAXPEOPLE = 10
 </string>
           </argument>
         </arguments>
@@ -66,54 +52,35 @@ blockboyance = 2
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>timer += 1
+            <string>if mouse_check_button_pressed(mb_left)
+{
+    mouseLast_x = mouse_x
+    mouseLast_y = mouse_y
+}
 
+if mouse_check_button(mb_left)
+{
+    if point_distance(mouse_x,0,mouseLast_x,0) &gt; 0
+        view_xview[0] += (mouseLast_x - mouse_x)*moveSpeed
+    if point_distance(mouse_y,0,mouseLast_y,0) &gt; 0
+        view_yview[0] += (mouseLast_y - mouse_y)*moveSpeed
+}
 
 if keyboard_check(vk_left)
-    waveSpeed -= 1/10
+    view_xview[0] -= 20
 if keyboard_check(vk_right)
-    waveSpeed += 1/10
-    
+    view_xview[0] += 20
 if keyboard_check(vk_up)
-    waveHeight -= 1/10
+    view_yview[0] -= 20
 if keyboard_check(vk_down)
-    waveHeight += 1/10
-    
-if keyboard_check(ord('W'))
-    wavesOnScreen -= 1/10
-if keyboard_check(ord('S'))
-    wavesOnScreen += 1/10
-    
-if keyboard_check(ord('A'))
-    blockx -= 1
-if keyboard_check(ord('D'))
-    blockx += 1
-    
-if keyboard_check_pressed(vk_space)
-    detail = !detail
-    
-    
-y = sin((blockx)*pi/room_width * wavesOnScreen+timer*waveSpeed/30)*sin(timer/30)*waveHeight*(random(5)/10+0.8) + waterheight
+    view_yview[0] += 20
 
-if blocky &gt; y
-{
-    blockyspeed += blockboyance*(y - blocky)/500 - 1/10
-    blockyspeed -= (blockwidth * blockyspeed)/1000
-}
-
-blockyspeed += _gravity/5
-
-//resisitance
-if blockyspeed &lt;&gt; 0
-    blockyspeed -= (blockwidth * blockyspeed)/1000//*blockwidth)
-
-blocky += blockyspeed
+if keyboard_check(vk_f12)
+    game_restart()
 </string>
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -130,16 +97,23 @@ blocky += blockyspeed
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_text(0,0,"Waves: " + string(wavesOnScreen) +  " W/S")
-draw_text(0,20,"Wave Speed: " + string(waveSpeed) +  " Left/Right")
-draw_text(0,40,"Wave Height: " + string(waveHeight) +  " Up/Down")
-draw_text(0,60,"Floaty bits: " + string(detail) +  " SPACE")
+            <string>if instance_number(obj_person) &lt; MAXPEOPLE
+{
+    x = random(room_width)
+    y = random(room_height)
+    while(!position_empty(x,y) or insideView())
+    {
+        x = random(room_width)
+        y = random(room_height)
+    }
+    instance_create(x,y,obj_person)
+}
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="7" enumb="4">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -156,49 +130,28 @@ draw_text(0,60,"Floaty bits: " + string(detail) +  " SPACE")
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw object
-draw_set_alpha(1)
-draw_set_color(c_gray)
-draw_rectangle(blockx+blockwidth/2,blocky+blockheight/2,blockx-blockwidth,blocky-blockheight/2,false)
-draw_set_color(c_black)
-draw_rectangle(blockx+blockwidth/2,blocky+blockheight/2,blockx-blockwidth,blocky-blockheight/2,true)
+            <string>x = random(room_width)
+y =random(room_height)
 
-
-//draw water
-for(x = 0; x  &lt; room_width; x += 1)
+repeat(50)
 {
-    random_set_seed(floor(x/rippleSize))
-    ran = random(5)
-    
-    xmod10 = x mod rippleSize
-    if xmod10 &lt; 5
+    while(!position_empty(x,y))
     {
-        random_set_seed(floor((x-1)/rippleSize))
-        ran1 = random(5)
-        ran2 = ran
-        ranVal = ran1*((rippleSize/2) mod (rippleSize/2))        /(rippleSize/2)
-               + ran2*((rippleSize/2) - x mod rippleSize/2)      /(rippleSize/2)
+        x = random(room_width)
+        y = random(room_height)
     }
-    else// if xmod10 &gt; 5
-    {
-        random_set_seed(floor((x+1)/rippleSize))
-        ran2 = random(5)
-        ran1 = ran
-        ranVal = ran1 * ((rippleSize/2) - x mod (rippleSize/2))   / (rippleSize/2)
-               + ran2 * (x mod (rippleSize/2))                    / (rippleSize/2)
-    }
-    
-    y = sin((x)*pi/room_width * wavesOnScreen+timer*waveSpeed/30)*sin(timer/30)*waveHeight*1 + waterheight
-    if detail
-        y = sin((x)*pi/room_width * wavesOnScreen+timer*waveSpeed/30)*sin(timer/30)*waveHeight*((ranVal)/10+0.8) + waterheight
-    y2 = sin((x+1)*pi/room_width * wavesOnScreen+timer*waveSpeed/30)*sin(timer/30)*waveHeight + waterheight
-    draw_set_alpha(waterAlpha)
-    draw_set_color(waterColor)
-    if !detail
-        draw_line(x,y,x+1,y2)
-    draw_rectangle(x,y,x+1,room_height,false)
+    instance_create(x,y,obj_person)
 }
 
+repeat(150)
+{
+    while(!position_empty(x,y))
+    {
+        x = random(room_width)
+        y =random(room_height)
+    }
+    instance_create(x,y,obj_tree)
+}
 </string>
           </argument>
         </arguments>

@@ -27,10 +27,67 @@
             <kind>1</kind>
             <string>targetx = x
 targety = y
-WALKspeed = 3
+WALKspeed = 1
 walkToRange = 100
 waitTimer = -1
-scale = 3
+SIGHT = 75
+scale = GAMESCALE
+action = WALK
+closestTargetX = x+lengthdir_x(SIGHT,direction)
+closestTargetY = y+lengthdir_y(SIGHT,direction)
+isLeader = false
+leader = false
+
+speed = WALKspeed
+
+clan = -1
+state = round(random(3)) mod 3
+
+_other = instance_nearest(x,y,obj_person)
+
+if state = AGRESSIVE
+    image_blend = (c_red)
+else if state = FRIENDLY
+    image_blend = (c_blue)
+else if state = NOTHING
+    image_blend = (c_black)
+    
+    
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>global.deadID = id
+with(obj_person)
+{
+    if leader = global.deadID
+    {
+        if global.deadID.isLeader
+            isLeader = true
+        else
+            leader = global.deadID.leader
+        newTarget()
+        _other = instance_nth_nearest(x,y,obj_person,2)
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -53,25 +110,32 @@ scale = 3
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-if targetx != x or targety != y
-{
-    speed = WALKspeed 
-    direction = point_direction(x,y,targetx,targety)
-}
-else
-    waitTimer = random(3)*30
+            <string>Action(WALK)
 
-    
-if waitTimer &lt;= 0
-{
-    targetx = x + random(walkToRange)*2 - walkToRange
-    targety = y + random(walkToRange)*2 - walkToRange
-    speed = WALKspeed
-    direction = point_direction(x,y,targetx,targety)
-    waitTimer = -1
-}
-
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>createDead(MAN)
+instance_destroy()
 </string>
           </argument>
         </arguments>
@@ -94,13 +158,51 @@ if waitTimer &lt;= 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_speed = WALKspeed
-image_xscale = scale
-image_yscale = scale
-draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+            <string>
+    if leader != false and instance_exists(leader)
+    {
+        draw_set_color(c_black)
+        draw_arrow(x,y,leader.x,leader.y,10)
+        draw_set_color(c_yellow)
+        if isLeader draw_arrow(x+1,y+1,leader.x+1,leader.y+1,10)
+    }
+
+if insideView()
+{
+    image_speed = speed
+    image_xscale = scale 
+    image_yscale = scale
+    
+    
+    draw_set_color(chooseColour(clan))
+    draw_set_alpha(0.3)
+    draw_circle(x,y,25,false)
+    draw_set_alpha(1)
+    draw_set_color(c_black)
+    if isLeader
+        draw_circle(x,y,25,true)
+    draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+    draw_text(x,y+20,string(clan))
+}
 </string>
           </argument>
         </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="123">
+      <action>
+        <libid>1</libid>
+        <id>331</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_restart_game</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
       </action>
     </event>
   </events>
