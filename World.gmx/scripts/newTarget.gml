@@ -9,8 +9,8 @@ else
 
 if argument0=0
 {
-    targetx = x + random(walkToRange)*2 - walkToRange
-    targety = y + random(walkToRange)*2 - walkToRange 
+    targetx = x + random(_range)*2 - _range
+    targety = y + random(_range)*2 - _range 
     if targetx < 0 or targetx > room_width
         targetx *= -1
     if targety < 0 or targety > room_height

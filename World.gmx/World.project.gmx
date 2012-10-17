@@ -12,6 +12,7 @@
       <sprite>sprites\spr_person</sprite>
       <sprite>sprites\spr_person_dead</sprite>
       <sprite>sprites\spr_grave</sprite>
+      <sprite>sprites\spr_crown</sprite>
     </sprites>
     <sprites name="scene">
       <sprite>sprites\spr_tree</sprite>
@@ -26,7 +27,11 @@
       <script>scripts\Action.gml</script>
       <script>scripts\newTarget.gml</script>
       <script>scripts\NearBody.gml</script>
+      <script>scripts\setLeader.gml</script>
       <script>scripts\NearSomeone.gml</script>
+      <script>scripts\Kill.gml</script>
+      <script>scripts\hasClan.gml</script>
+      <script>scripts\inEnemyClan.gml</script>
     </scripts>
     <script>scripts\insideRoom.gml</script>
     <script>scripts\insideView.gml</script>
@@ -37,6 +42,7 @@
     <script>scripts\chooseColour.gml</script>
   </scripts>
   <objects name="objects">
+    <object>objects\obj_clan</object>
     <object>objects\obj_tree</object>
     <object>objects\obj_dead</object>
     <object>objects\obj_draw</object>

@@ -18,7 +18,6 @@ switch(argument0)
             Action(ATTARGET)
         else
             Action(WAITING)
-            
         break;
         
     case WAIT:
@@ -26,6 +25,7 @@ switch(argument0)
         if random(5) <= 1
         waitTimer = random(3)*30
         break;
+        
         
     case WAITING:
         action = WAITING
@@ -37,18 +37,21 @@ switch(argument0)
             {
                 if clan != -1
                     newTarget(walkToRange/2)
+                else if isLeader
+                    newTarget(walkToRange*2)
                 else
                     newTarget()
             }
             else
-                newTarget(leader.x,leader.y)
+                newTarget(leader.x+random(10)-5,leader.y+random(10)-5)
             waitTimer = -1
             return false
         }
         waitTimer -= 1
         return true
-        
         break;
+        
+        
     case BURY:
         dead = instance_nearest(x,y,obj_dead)
         //move to target
@@ -59,11 +62,15 @@ switch(argument0)
             Action(WAIT)
         }
         break;
+        
+        
     case ATTARGET:
         //following clan
         Action(ATSOMEONE)
         Action(WAIT)
         break;
+        
+        
     case ATSOMEONE:
         if instance_exists(_other)
         {
@@ -81,9 +88,11 @@ switch(argument0)
                     _other.leader = id
                     _other.isLeader = false
                 }
-                //kill
-                else if state = AGRESSIVE and clan != _other.clan
-                    {with(_other){ createDead(MAN) instance_destroy()}}
+                //kill because agressive
+                else if (state = AGRESSIVE and clan != _other.clan) or inEnemyClan(id,_other)
+                    {Kill(_other,id)}
+                //enemy kill
+                //else if (_other.clan = obj_clan.enemyClan[clan])    
                 //make friends
                 else if state = FRIENDLY
                 {
@@ -94,8 +103,9 @@ switch(argument0)
                         if clan = -1
                         {
                             clan = floor(random(CLANS))
-                            isLeader = true
-                            leader = false
+                            //isLeader = true
+                            setLeader(true)
+                            //leader = false
                         }
                         _other.clan = clan
                         _other.leader = id
@@ -106,10 +116,11 @@ switch(argument0)
                         if clan = -1 and _other.clan = -1
                         {
                             clan = floor(random(CLANS))
-                            isLeader = true
-                            leader = false
+                            //isLeader = true
+                            setLeader(true)
+                            /*leader = false
                             _other.clan = clan
-                            _other.leader = id
+                            _other.leader = id*/
                         }else if clan = -1 
                         {
                             clan = _other.clan
@@ -125,6 +136,7 @@ switch(argument0)
             }
         }
         break;
+        
 }
 
 return false

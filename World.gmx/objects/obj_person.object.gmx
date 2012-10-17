@@ -3,7 +3,7 @@
   <spriteName>spr_person</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -61,7 +61,9 @@ else if state = FRIENDLY
 else if state = NOTHING
     image_blend2 = (c_black)
     
-    
+killer = false
+
+girl = random(10) mod 2
 </string>
           </argument>
         </arguments>
@@ -85,19 +87,29 @@ else if state = NOTHING
           <argument>
             <kind>1</kind>
             <string>global.deadID = id
+
+if clan != -1 and killer.clan != -1
+{
+    if (killer != false)
+        obj_clan.enemyClan[clan] = killer.clan
+}
+
 with(obj_person)
 {
-    if leader = global.deadID
+    if clan = global.deadID.clan
     {
-        if global.deadID.isLeader
+        if leader = global.deadID
         {
-            isLeader = true
-            leader = false
+            if global.deadID.isLeader
+            {
+                isLeader = true
+                leader = false
+            }
+            else
+                leader = global.deadID.leader
+            newTarget()
+            _other = instance_nth_nearest(x,y,obj_person,2)
         }
-        else
-            leader = global.deadID.leader
-        newTarget()
-        _other = instance_nth_nearest(x,y,obj_person,2)
     }
 }
 </string>
@@ -128,6 +140,29 @@ if (leader != false and instance_exists(leader))
 {
     clan = leader.clan
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="8">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>obj_control.selected = id
 </string>
           </argument>
         </arguments>
@@ -180,6 +215,8 @@ instance_destroy()
     draw_arrow(x,y,leader.x,leader.y,10)
     draw_set_color(c_yellow)
     if isLeader draw_arrow(x+1,y+1,leader.x+1,leader.y+1,10)
+    
+    
 }
 
 if insideView()
@@ -196,17 +233,42 @@ if insideView()
         draw_circle(x,y,25,false)
         draw_set_alpha(1)
         draw_set_color(c_black)
-        if isLeader
-            draw_circle(x,y,25,true)
     }
     draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha)
+    if isLeader
+        draw_sprite_ext(spr_crown,image_index,x,y,image_xscale,image_yscale,image_angle,noone,image_alpha)
+    if girl
+    {
+        draw_set_color(c_black)
+        draw_triangle(x-2.5*scale,14+y,x+2.5*scale,14+y,x,14+y-3*scale,false)
+    }
     if global.debuggin
     {
         draw_set_color(image_blend2)
         draw_circle(x+10,y-10,5,false)
         draw_text(x,y+20,string(clan))
+        
+        
+        draw_set_color(c_black)
+        if (obj_control.selected != false)
+        {
+            if id = obj_control.selected
+                draw_rectangle(x-15,y-15,x+15,y+15,true)
+                
+            //if obj_control.selected.clan != -1
+            for(i = 0; i &lt; CLANS; i +=1 )
+            {
+                if clan = obj_clan.enemyClan[i]//[obj_control.selected.clan]
+                {
+                    draw_set_color(chooseColour(i))
+                    draw_text(x,y-10,"ENEMY!")
+                }
+            }  
+        } 
     }
 }
+
+
 </string>
           </argument>
         </arguments>

@@ -34,6 +34,9 @@ switch(argument0)
     case 10:
         return c_lime
     break;
+    case -1:
+        return c_white
+        break;
 }
 
-return c_white
+return c_black
