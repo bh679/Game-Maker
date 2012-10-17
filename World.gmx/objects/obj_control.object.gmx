@@ -35,6 +35,16 @@ global.debuggin = false
 
 selected = instance_nearest(x,y,obj_person)
 view_enabled = 0
+
+with(obj_person){age = random(30)+20}
+
+
+for(i = 0; i &lt; view_wview[0]-20; i += 1)
+{
+    peopleCount[i] = 0;
+}
+
+timer =0
 </string>
           </argument>
         </arguments>
@@ -122,6 +132,9 @@ if keyboard_check_pressed(vk_space)
     }
     instance_create(x,y,obj_person)
 }
+
+timer += 1
+peopleCount[(timer/30) mod (view_wview[0]-20)] = instance_number(obj_person)
 </string>
           </argument>
         </arguments>
@@ -156,7 +169,8 @@ repeat(50)
         x = random(room_width)
         y = random(room_height)
     }
-    instance_create(x,y,obj_person)
+    person = instance_create(x,y,obj_person)
+    person.age = random(30)+20
 }
 
 repeat(150)
@@ -190,7 +204,14 @@ repeat(150)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string></string>
+            <string>x = view_xview[0]+10
+y = view_yview[0]+120
+draw_set_color(c_dkgray)
+for(i = 0; i &lt; view_wview[0]-20; i += 1)
+{
+    draw_line(x+i,y+peopleCount[i],x+i+1,y-1)
+}
+</string>
           </argument>
         </arguments>
       </action>

@@ -33,6 +33,11 @@
       <script>scripts\Kill.gml</script>
       <script>scripts\hasClan.gml</script>
       <script>scripts\inEnemyClan.gml</script>
+      <script>scripts\breed.gml</script>
+    </scripts>
+    <scripts name="Life">
+      <script>scripts\die.gml</script>
+      <script>scripts\growOlder.gml</script>
     </scripts>
     <script>scripts\insideRoom.gml</script>
     <script>scripts\insideView.gml</script>

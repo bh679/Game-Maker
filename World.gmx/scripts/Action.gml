@@ -6,9 +6,16 @@ switch(argument0)
         {
             action = WALK
             Collisions()
-            NearBody()
-            NearSomeone()
-            Action(ATSOMEONE)
+            //show_message(string(age))
+            if age < 1
+                a = 1 ;//_other = parent;
+            else
+            {
+                NearBody()
+                NearSomeone()
+                Action(ATSOMEONE)
+                breed()
+            }
             speed = WALKspeed 
             direction = point_direction(x,y,targetx,targety)
             waitTimer = 0

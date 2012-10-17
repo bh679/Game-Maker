@@ -11,6 +11,26 @@
     <event eventtype="0" enumb="0">
       <action>
         <libid>1</libid>
+        <id>605</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>0</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>personal</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
         <id>603</id>
         <kind>7</kind>
         <userelative>0</userelative>
@@ -25,29 +45,16 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>age = 0
-
-targetx = x
-targety = y
-WALKspeed = 1
-scale = GAMESCALE
-walkToRange = 100
-waitTimer = -1
+            <string>isReadyForBaby = false
+age = 0
+death = random(50)+50
 SIGHT = 75
-InReach = 20//sprite_height*scale/3+sprite_width*scale/3
-action = WALK
-closestTargetX = x+lengthdir_x(SIGHT,direction)
-closestTargetY = y+lengthdir_y(SIGHT,direction)
-isLeader = false
-leader = false
-
-speed = WALKspeed
-
-clan = -1
+InReach = 20
+//MAXSpeed = 1
 passiveState = round(random(3)) mod 3
 state = passiveState
+WALKspeed = 1//MAXSpeed
 
-_other = instance_nearest(x,y,obj_person)
 
 if passiveState = AGRESSIVE
     image_blend = merge_color(c_red,c_black,0.5)
@@ -62,10 +69,90 @@ else if state = FRIENDLY
     image_blend2 = (c_blue)
 else if state = NOTHING
     image_blend2 = (c_black)
-    
-killer = false
 
 girl = round(random(10)) mod 2
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>605</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>0</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>variables</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>parent = false
+targetx = x
+targety = y
+scale = GAMESCALE
+walkToRange = 100
+waitTimer = -1//sprite_height*scale/3+sprite_width*scale/3
+action = WALK
+closestTargetX = x+lengthdir_x(SIGHT,direction)
+closestTargetY = y+lengthdir_y(SIGHT,direction)
+isLeader = false
+leader = false
+
+speed = WALKspeed
+
+clan = -1
+
+_other = instance_nearest(x,y,obj_person)
+    
+killer = false
+alarm[0] = random(20)*30
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>view_xview[0] = x - view_wview[0]/2
+view_yview[0] = y - view_hview[0]/2
 </string>
           </argument>
         </arguments>
@@ -120,6 +207,32 @@ with(obj_person)
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if age &gt; 16
+    isReadyForBaby = true
+else
+    alarm[0] = 30*10
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -145,6 +258,7 @@ if (leader != false and instance_exists(leader))
 }
 
 age += 1/120
+growOlder()
 </string>
           </argument>
         </arguments>
@@ -228,8 +342,6 @@ instance_destroy()
 if insideView()
 {
     image_speed = speed
-    image_xscale = scale 
-    image_yscale = scale
     
     
     if global.debuggin
@@ -246,7 +358,7 @@ if insideView()
     if girl
     {
         draw_set_color(c_pink)
-        draw_triangle(x-2.5*scale,14+y,x+2.5*scale,14+y,x,14+y-3*scale,false)
+        draw_triangle(x-2.5*image_xscale,14+y,x+2.5*image_xscale,14+y,x,14+y-3*image_xscale,false)
     }
     if global.debuggin
     {
