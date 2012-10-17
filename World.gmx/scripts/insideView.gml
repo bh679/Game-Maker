@@ -1,3 +1,3 @@
-if x < view_xview[0] or x > view_xview[0]+view_wview[0] or y < view_yview[0] or y > view_yview[0] + view_hview[0]
+if x < view_xview[view_current] or x > view_xview[view_current]+view_wview[view_current] or y < view_yview[view_current] or y > view_yview[view_current] + view_hview[view_current]
     return false
 return true

@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>targetx = x
+            <string>age = 0
+
+targetx = x
 targety = y
 WALKspeed = 1
 scale = GAMESCALE
@@ -48,11 +50,11 @@ state = passiveState
 _other = instance_nearest(x,y,obj_person)
 
 if passiveState = AGRESSIVE
-    image_blend = (c_red)
+    image_blend = merge_color(c_red,c_black,0.5)
 else if passiveState = FRIENDLY
-    image_blend = (c_blue)
+    image_blend = merge_color(c_blue,c_black,0.5)
 else if passiveState = NOTHING
-    image_blend = (c_black)
+    image_blend = c_black
 
 if state = AGRESSIVE
     image_blend2 = (c_red)
@@ -63,7 +65,7 @@ else if state = NOTHING
     
 killer = false
 
-girl = random(10) mod 2
+girl = round(random(10)) mod 2
 </string>
           </argument>
         </arguments>
@@ -88,9 +90,10 @@ girl = random(10) mod 2
             <kind>1</kind>
             <string>global.deadID = id
 
-if clan != -1 and killer.clan != -1
+
+if (killer != false)
 {
-    if (killer != false)
+    if clan != -1 and killer.clan != -1
         obj_clan.enemyClan[clan] = killer.clan
 }
 
@@ -140,6 +143,8 @@ if (leader != false and instance_exists(leader))
 {
     clan = leader.clan
 }
+
+age += 1/120
 </string>
           </argument>
         </arguments>
@@ -185,7 +190,8 @@ if (leader != false and instance_exists(leader))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>createDead(MAN)
+            <string>Kill(id,false)
+/*createDead(MAN)
 instance_destroy()
 </string>
           </argument>
@@ -239,7 +245,7 @@ if insideView()
         draw_sprite_ext(spr_crown,image_index,x,y,image_xscale,image_yscale,image_angle,noone,image_alpha)
     if girl
     {
-        draw_set_color(c_black)
+        draw_set_color(c_pink)
         draw_triangle(x-2.5*scale,14+y,x+2.5*scale,14+y,x,14+y-3*scale,false)
     }
     if global.debuggin

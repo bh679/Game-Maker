@@ -1,6 +1,11 @@
 //show_message('bout time')
 _other = instance_nth_nearest(x,y,obj_person,2)
 
+if (clan != -1 and !isLeader and leader != false)
+{
+     if distance_to_object(leader) > SIGHT*3 
+        leaveClan()
+}
 
 if (distance_to_object(_other) < SIGHT)
 {

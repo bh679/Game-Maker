@@ -7,10 +7,10 @@ if argument1 = 0 and argument0 != 0
 else
     _range = walkToRange
 
-if argument0=0
+if argument1=0
 {
-    targetx = x + random(_range)*2 - _range
-    targety = y + random(_range)*2 - _range 
+    targetx = x + random(_range)*2 - _range - 1
+    targety = y + random(_range)*2 - _range + 1
     if targetx < 0 or targetx > room_width
         targetx *= -1
     if targety < 0 or targety > room_height

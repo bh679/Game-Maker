@@ -27,6 +27,7 @@
       <script>scripts\Action.gml</script>
       <script>scripts\newTarget.gml</script>
       <script>scripts\NearBody.gml</script>
+      <script>scripts\leaveClan.gml</script>
       <script>scripts\setLeader.gml</script>
       <script>scripts\NearSomeone.gml</script>
       <script>scripts\Kill.gml</script>
@@ -52,7 +53,8 @@
   <rooms name="rooms">
     <room>rooms\room0</room>
   </rooms>
-  <constants number="12">
+  <constants number="13">
+    <constant name="c_pink">make_color(255,155,155)</constant>
     <constant name="ATSOMEONE">"at someone"</constant>
     <constant name="FRIENDLY">2</constant>
     <constant name="NOTHING">0</constant>

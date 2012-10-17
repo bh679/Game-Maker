@@ -43,7 +43,7 @@ switch(argument0)
                     newTarget()
             }
             else
-                newTarget(leader.x+random(10)-5,leader.y+random(10)-5)
+                newTarget(leader.x+random(30)-15,leader.y+random(30)-15)
             waitTimer = -1
             return false
         }
@@ -77,7 +77,8 @@ switch(argument0)
             //both in same clan, who cares distance
             if clan = _other.clan and clan != -1 and isLeader = false
             {
-                
+                if distance_to_object(_other) < SIGHT and leader = false
+                    leader = _other 
             }
             //reached someone not both in same clan
             else if distance_to_object(_other) < InReach
@@ -89,7 +90,7 @@ switch(argument0)
                     _other.isLeader = false
                 }
                 //kill because agressive
-                else if (state = AGRESSIVE and clan != _other.clan) or inEnemyClan(id,_other)
+                else if (state = AGRESSIVE and (clan != _other.clan or clan = -1)) or inEnemyClan(id,_other)
                     {Kill(_other,id)}
                 //enemy kill
                 //else if (_other.clan = obj_clan.enemyClan[clan])    

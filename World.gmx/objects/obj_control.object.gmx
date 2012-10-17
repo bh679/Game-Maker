@@ -34,6 +34,7 @@ MAXPEOPLE = 10
 global.debuggin = false
 
 selected = instance_nearest(x,y,obj_person)
+view_enabled = 0
 </string>
           </argument>
         </arguments>
@@ -79,6 +80,12 @@ if keyboard_check(vk_up)
 if keyboard_check(vk_down)
     view_yview[0] += 20
 
+if keyboard_check_pressed(vk_enter)
+{
+    view_enabled = (1 + view_enabled) mod 2
+    //view_current = view_enabled
+}
+    
 if keyboard_check(vk_f12)
     game_restart()
     
@@ -137,7 +144,9 @@ if keyboard_check_pressed(vk_space)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>x = random(room_width)
+            <string>randomize()
+
+x = random(room_width)
 y =random(room_height)
 
 repeat(50)
@@ -181,8 +190,7 @@ repeat(150)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-</string>
+            <string></string>
           </argument>
         </arguments>
       </action>
