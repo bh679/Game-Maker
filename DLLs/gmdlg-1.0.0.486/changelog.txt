@@ -1,0 +1,15 @@
+gmdlg3.dll change log
+
+Saturday 2 April 2005:
+Version 1.0.0.486
+-Made everything Game Maker 5 and 6 compatible
+-gmdlg_init now reports the window handle to the DLL. This allows for compatibility with other DLLs, such as GM Widgets. For example you can create a window in GMW and make one of the dialog boxes in this DLL a child of that window.
+
+Wednesday 30 March 2005:
+Version 1.0.0.472
+-Edited gmdlg_init script
+-Changed the Track Bar dialog box template to prevent the text from being cut off.
+
+Tuesday 29 March 2005:
+Version 1.0.0.466
+-Released first version of DLL
