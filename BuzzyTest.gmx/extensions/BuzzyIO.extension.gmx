@@ -20,7 +20,18 @@
           <CopyToMask>110</CopyToMask>
         </Config>
       </ConfigOptions>
-      <functions/>
+      <functions>
+        <function>
+          <name>TestGetJson</name>
+          <externalName>getJson</externalName>
+          <kind>11</kind>
+          <id>1</id>
+          <help></help>
+          <returnType>1</returnType>
+          <argCount>0</argCount>
+          <args/>
+        </function>
+      </functions>
       <constants/>
     </file>
   </files>

@@ -8,6 +8,31 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//show_message("loading jSon")
+table = TestJsonDecode()
+show_message(ds_map_find_value(table,'name'))
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -25,11 +50,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(make_color(sin(x) * 255,sin(y) * 255,cos(x)*100 + cos(y) * 155))
+            <string>draw_set_color(merge_color(make_color(sin(x) * 255,sin(y) * 255,cos(x)*100 + cos(y) * 155),c_white,0.8))
 draw_rectangle(0,0,room_width,room_height,false)
 
-x += 1
-y += 1
+x += 1/100
+y += 1/100
+//draw_set_color(c_black)
+//draw_text(10,10,"Name: " + ds_map_find_value(table,'name'))
+
 </string>
           </argument>
         </arguments>

@@ -3,23 +3,29 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <NewExtensions>
-    <extension index="0">extensions\BuzzyIO</extension>
-  </NewExtensions>
+  <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites">
-    <sprite>sprites\sprite0</sprite>
-  </sprites>
+  <sprites name="sprites"/>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\TestJsonDecode.gml</script>
+    <scripts name="GMJSON">
+      <script>scripts\setup_JSON.gml</script>
+      <script>scripts\parse_JSON.gml</script>
+      <script>scripts\parse_array.gml</script>
+      <script>scripts\destroy_JSON.gml</script>
+      <script>scripts\cleanup_JSON.gml</script>
+      <scripts name="Helpers">
+        <script>scripts\string_remove_spaces.gml</script>
+        <script>scripts\string_clip_end.gml</script>
+      </scripts>
+    </scripts>
   </scripts>
   <objects name="objects">
-    <object>objects\object0</object>
+    <object>objects\Example_Object</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\Example_Room</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
