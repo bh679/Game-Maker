@@ -1,6 +1,7 @@
 function buzzyTest(arg1)
 {
 	alert(arg1);
+	return 1;
 }
 
 function getJson()

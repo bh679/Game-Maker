@@ -22,14 +22,16 @@
       </ConfigOptions>
       <functions>
         <function>
-          <name>TestGetJson</name>
-          <externalName>getJson</externalName>
+          <name>alert</name>
+          <externalName>buzzyTest</externalName>
           <kind>11</kind>
-          <id>1</id>
+          <id>6</id>
           <help></help>
-          <returnType>1</returnType>
-          <argCount>0</argCount>
-          <args/>
+          <returnType>2</returnType>
+          <argCount>1</argCount>
+          <args>
+            <arg>1</arg>
+          </args>
         </function>
       </functions>
       <constants/>

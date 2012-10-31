@@ -25,9 +25,17 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//show_message("loading jSon")
-table = TestJsonDecode()
-show_message(ds_map_find_value(table,'name'))
+            <string>show_message("game maker alert")
+retval = alert("js alert")
+
+if retval = 1
+   show_message("Works")
+else
+   show_message("Hmmm... :/")
+
+//show_message(string(retval1));
+//table = TestJsonDecode()
+//show_message(ds_map_find_value(table,'name'))
 </string>
           </argument>
         </arguments>
