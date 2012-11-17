@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>GM AJAX Help</title>
+		
+        <style>
+            body {
+              background: #222;
+              color:#cccccc;
+            }
+            canvas {
+                      image-rendering: optimizeSpeed;
+                      -webkit-interpolation-mode: nearest-neighbor;
+            }
+			#title {
+				color:#999;
+				font-size: 24px;
+				font-family: Sans-serif;
+				font-weight: bold;
+				text-align: center;
+				border-radius: 15px;
+				background: #1e1e1e;
+				border-width: 0.15em;
+				border-style: dashed;
+				border-color: #333333;
+				width:400px;
+				height:auto;
+				padding:10px;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+			#info {
+				color:#999;
+				font-size: 16px;
+				font-family: Sans-serif;
+				text-align: center;
+				border-radius: 15px;
+				background: #1e1e1e;
+				border-width: 0.15em;
+				border-style: dashed;
+				border-color: #333333;
+				width:700px;
+				height:auto;
+				padding:5px;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+			#functions {
+				color:#999;
+				font-size: 16px;
+				font-family: Sans-serif;
+				text-align: left;
+				border-radius: 15px;
+				background: #1e1e1e;
+				border-width: 0.15em;
+				border-style: dashed;
+				border-color: #333333;
+				width:700px;
+				height:auto;
+				padding:5px;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+			a:link {color:#555;}
+			a:visited {color:#555;}
+			a:hover {color:#888; opacity:0.7;}
+			a:active {color:#555;}
+			
+        </style>
+    </head>
+
+    <body>
+		<div id="title">
+		GM AJAX
+		</div>
+		
+		<div id="spacer" style="height:16px;"></div>
+		
+		<div id="info">
+		<b>About</b>
+		<p>GM AJAX is an extension for GameMaker:HTML5 which allows for simple AJAX (Asynchronous JavaScript and XML) communication.
+		</div>
+		
+		<div id="spacer" style="height:16px;"></div>
+		
+		<div id="info">
+		<b>Functions</b>
+		
+		<p style="text-align:left; padding:4px;">
+		<b>ajax_request_new()</b>
+		<br>Creates a new AJAX request and returns the ID.
+		
+		<p style="text-align:left; padding:4px;">
+		<b>ajax_request_send(id,method,url,data)</b>
+		<br>Sends the AJAX request with the specified <em>ID.</em> <em>Method</em> specifies whether it is a "GET" or "POST" request. <em>URL</em> indicates the file to request. <em>Data</em> is a string containing any information to be submitted with the request.
+		
+		<p style="text-align:left; padding:4px;">
+		<b>ajax_check_reply(id)</b>
+		<br>Checks to see if a reply is ready for the specified AJAX request. Returns true if a reply is ready, returns false if not.
+		
+		<p style="text-align:left; padding:4px;">
+		<b>ajax_check_failed(id)</b>
+		<br>Checks to see if the specified AJAX request has failed. Returns true if the AJAX request has failed. Returns false if it has not yet failed. <em>(Example: If the specified URL returns a 404 Not Found Error)</em>
+		
+		<p style="text-align:left; padding:4px;">
+		<b>ajax_read_reply(id)</b>
+		<br>Returns the reply received for the specified AJAX request.
+		
+		<p style="text-align:left; padding:4px;">
+		<b>ajax_clear_requests()</b>
+		<br>Clears all AJAX requests and resets ID assigning. This frees memory, which is particularly useful if your application sends a large number of AJAX requests over time. (Warning: This function clears <b>all</b> AJAX requests and IDs, regardless of whether they have been sent or replied to. Use caution if you have variables holding old ID numbers, as newly created requests will begin using old ID numbers.)
+		
+		</div>
+		
+		<div id="spacer" style="height:16px;"></div>
+		
+		<div id="info">
+		<b>Limitations</b>
+		<p style="padding:2px;">GM AJAX is bound by the <a href="http://en.wikipedia.org/wiki/Same_origin_policy" target="_blank">Same Origin Policy</a>, meaning cross domain AJAX requests are not permitted unless the server allows <a href="http://enable-cors.org/" target="_blank">cross-origin resource sharing</a>
+		<em>(I.e. AJAX requests can only be sent to pages hosted on the same domain as your HTML5 application).</em>
+		
+		<p style="padding:2px;">In some instances, the response from AJAX GET requests will be cached by the user's browser. If caching is not desired, the server response must include a 'no-cache' header. Alternatively, use a POST request if caching is not desired.
+		</div>
+		
+		<div id="spacer" style="height:16px;"></div>
+		
+		<div id="info">
+		<b>License</b>
+		<p>GM AJAX is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons Attribution 3.0 Unported License</a>.
+		
+		<p><i>(You are free to use, modify and distribute this work, including for commerical purposes.)</i>
+		
+		<p>GM AJAX Created by <a href="http://gmc.yoyogames.com/index.php?showuser=34635" target="_blank">JacksonYarr</a>
+		</div>
+		
+    </body>
+</html>
