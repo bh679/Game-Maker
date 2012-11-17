@@ -25,7 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Start up camera
+            <string>xfrom = 0
+yfrom = 0
+zfrom = 0;
+
+// Start up camera
 d3d_start()
 d3d_set_hidden(1)
 d3d_set_culling(0)
@@ -42,6 +46,9 @@ camzoom=100
 drag=0
 prevx=mouse_x
 prevy=mouse_y
+
+side = 0
+text = ''
 </string>
           </argument>
         </arguments>
@@ -67,7 +74,21 @@ prevy=mouse_y
             <string>// Zoom with mouse wheel.
 if (mouse_wheel_up() &amp;&amp; camzoom&gt;10) camzoom/=1.2
 if (mouse_wheel_down() &amp;&amp; camzoom&lt;1000) camzoom*=1.2
-
+if (mouse_check_button_released(mb_left) &amp;&amp; side &gt; 0)
+{
+    blocksize = 16
+    newx = 0
+    newy = 0
+    newz = 0
+    if (side=1) {newx += blocksize}
+    else if (side=2) {newx -= blocksize}
+    else if (side=3) {newy += blocksize}
+    else if (side=4) {newy -= blocksize}
+    else if (side=5) {newz += blocksize}
+    else if (side=6) {newz -= blocksize}
+    newblock = instance_create(clicked.x + newx,clicked.y + newy,obj_box)
+    newblock.z = clicked.z + newz
+}
 // Drag view with left mouse button.
 if (drag=1) {
     if (mouse_check_button(mb_left)) {
@@ -126,7 +147,7 @@ prevy=mouse_y
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var side,text,xfrom,yfrom,zfrom;
+            <string>
 
 // Set the position of the camera.
 xfrom=cos(degtorad(camanglez))*lengthdir_x(camzoom,camangle+180)
@@ -139,16 +160,28 @@ draw_set_alpha(1)
 d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,view_wview/view_hview,1,32000)
 d3d_light_define_point(0,xfrom,yfrom,zfrom,2000,c_white)
 
-// Prepare the block checking script, notice how we use the same arguments
-// as in the projection function, with the exception of the last three.
-d3d_check_mouse_block_prepare(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,0)
-
+clicked = noone
+side = 0
 with(obj_box)
 {
+    // Prepare the block checking script, notice how we use the same arguments
+    // as in the projection function, with the exception of the last three.
+    d3d_check_mouse_block_prepare(obj_camera.xfrom,obj_camera.yfrom,obj_camera.zfrom,0,0,0,0,0,1,60,0)
     // Draw a block, check the cursor and store the result into a variable.
     d3d_draw_block(x-8,y-8,z-8,x+8,y+8,z+8,-1,1,1)
-    side=d3d_check_mouse_block(x-8,y-8,z-8,x+8,y+8,z+8)
-    
+    side = d3d_check_mouse_block(x-8,y-8,z-8,x+8,y+8,z+8)
+    if side &gt; 0
+    {
+        obj_camera.clicked = d3d_closest_to_camera(obj_camera.clicked,id)
+        if (id = obj_camera.clicked)
+        {
+            obj_camera.side = side
+        }
+    }
+}
+
+with(clicked)
+{
     // Highlight the selected side.
     d3d_set_lighting(0)
     draw_set_color(c_red)
@@ -165,7 +198,8 @@ with(obj_box)
 d3d_set_projection_ortho(0,0,view_wview,view_hview,0)
 d3d_set_hidden(0)
 draw_set_color(c_black)
-if (text!="") draw_text(2,2,"Touching side: "+text)
+//if (text!="") draw_text(2,2,"Touching side: "+text)
+if obj_camera.side &gt; 0 draw_text(2,2,"Mouse on")
 d3d_set_hidden(1)
 d3d_set_lighting(1)
 
@@ -185,5 +219,8 @@ room_caption="FPS: "+string(fps)
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
+  <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
+  <PhysicsObjectAwake>-1</PhysicsObjectAwake>
+  <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints/>
 </object>

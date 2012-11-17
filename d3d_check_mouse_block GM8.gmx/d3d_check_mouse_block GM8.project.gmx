@@ -11,6 +11,8 @@
   <scripts name="scripts">
     <script>scripts\d3d_check_mouse_block.gml</script>
     <script>scripts\d3d_check_mouse_block_prepare.gml</script>
+    <script>scripts\d3d_point_distance.gml</script>
+    <script>scripts\d3d_closest_to_camera.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_camera</object>
