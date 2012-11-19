@@ -41,6 +41,8 @@ d3d_light_enable(0,1)
 camangle=45
 camanglez=25
 camzoom=100
+camdownanglez = camanglez
+camdownangle = camangle
 
 // Variables for view dragging
 drag=0
@@ -74,9 +76,8 @@ text = ''
             <string>// Zoom with mouse wheel.
 if (mouse_wheel_up() &amp;&amp; camzoom&gt;10) camzoom/=1.2
 if (mouse_wheel_down() &amp;&amp; camzoom&lt;1000) camzoom*=1.2
-if (mouse_check_button_released(mb_left) &amp;&amp; side &gt; 0)
+if (mouse_check_button_released(mb_left) &amp;&amp; side &gt; 0 &amp;&amp; point_distance(camdownanglez,camdownangle,camanglez,camangle) &lt; 1)
 {
-    blocksize = 16
     newx = 0
     newy = 0
     newz = 0
@@ -88,7 +89,12 @@ if (mouse_check_button_released(mb_left) &amp;&amp; side &gt; 0)
     else if (side=6) {newz -= blocksize}
     newblock = instance_create(clicked.x + newx,clicked.y + newy,obj_box)
     newblock.z = clicked.z + newz
+    
+    if instance_number(obj_box) &gt; blocks
+        newblock.image_blend = c_red
 }
+
+
 // Drag view with left mouse button.
 if (drag=1) {
     if (mouse_check_button(mb_left)) {
@@ -98,7 +104,24 @@ if (drag=1) {
     } else {
         drag=0
     }
-} else if (mouse_check_button_pressed(mb_left)) drag=1
+} else if (mouse_check_button_pressed(mb_left)) 
+{
+    camdownanglez = camanglez
+    camdownangle = camangle
+    drag = 1
+}
+
+finished = true
+for(i = 0; i &lt; targets; i += 1)
+{
+    finished *= target[i]
+}
+if finished = true
+{
+    if instance_number(obj_box) &lt;= blocks
+        score += 1
+    room_restart()
+}
 
 prevx=mouse_x
 prevy=mouse_y
@@ -125,6 +148,48 @@ prevy=mouse_y
           <argument>
             <kind>1</kind>
             <string>d3d_end()
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with(obj_box)
+{
+    instance_destroy()
+}
+
+targets = 5
+for(i = 0; i &lt; targets; i += 1)
+{
+    targetx[i] = floor(random(10))-5;
+    targety[i] = floor(random(10))-5;
+    targetz[i] = floor(random(10))-5;
+    target[i] = false
+}
+
+//instance_create(0,0,obj_box)
+instance_create(16,0,obj_box)
+
+blocks = calcOptBlocks()
 </string>
           </argument>
         </arguments>
@@ -147,9 +212,7 @@ prevy=mouse_y
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-
-// Set the position of the camera.
+            <string>// Set the position of the camera.
 xfrom=cos(degtorad(camanglez))*lengthdir_x(camzoom,camangle+180)
 yfrom=cos(degtorad(camanglez))*lengthdir_y(camzoom,camangle+180)
 zfrom=sin(degtorad(camanglez))*camzoom
@@ -160,6 +223,8 @@ draw_set_alpha(1)
 d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,view_wview/view_hview,1,32000)
 d3d_light_define_point(0,xfrom,yfrom,zfrom,2000,c_white)
 
+//draw grid
+
 clicked = noone
 side = 0
 with(obj_box)
@@ -168,6 +233,7 @@ with(obj_box)
     // as in the projection function, with the exception of the last three.
     d3d_check_mouse_block_prepare(obj_camera.xfrom,obj_camera.yfrom,obj_camera.zfrom,0,0,0,0,0,1,60,0)
     // Draw a block, check the cursor and store the result into a variable.
+    draw_set_color(image_blend)
     d3d_draw_block(x-8,y-8,z-8,x+8,y+8,z+8,-1,1,1)
     side = d3d_check_mouse_block(x-8,y-8,z-8,x+8,y+8,z+8)
     if side &gt; 0
@@ -180,26 +246,50 @@ with(obj_box)
     }
 }
 
+draw_set_alpha(1)
+//targets
+for(i = 0; i &lt; targets; i += 1)
+{
+    draw_set_color(c_black)
+    if target[i] = false
+        d3d_draw_block(targetx[i]*blocksize-8,targety[i]*blocksize-8,
+                        targetz[i]*blocksize-8,targetx[i]*blocksize+8,
+                        targety[i]*blocksize+8,targetz[i]*blocksize+8,
+                        sprite_get_texture(spr_outline,0),1,1)
+}
+draw_set_alpha(1)
+
+//highlights
 with(clicked)
 {
     // Highlight the selected side.
     d3d_set_lighting(0)
     draw_set_color(c_red)
     text=""
-    if (side=1) {text="East (X)" d3d_draw_wall(x+8.01,y-8.01,z-8.01,x+8.01,y+8.01,z+8.01,-1,1,1)}
-    else if (side=2) {text="West (-X)" d3d_draw_wall(x-8.01,y-8.01,z-8.01,x-8.01,y+8.01,z+8.01,-1,1,1)}
-    else if (side=3) {text="South (Y)" d3d_draw_wall(x-8.01,y+8.01,z-8.01,x+8.01,y+8.01,z+8.01,-1,1,1)}
-    else if (side=4) {text="North (-Y)" d3d_draw_wall(x-8.01,y-8.01,z-8.01,x+8.01,y-8,z+8.01,-1,1,1)}
-    else if (side=5) {text="Above (Z)" d3d_draw_floor(x-8.01,y-8.01,z+8.01,x+8.01,y+8,z+8.01,-1,1,1)}
-    else if (side=6) {text="Below (-Z)" d3d_draw_floor(x-8.01,y-8.01,z-8.01,x+8.01,y+8.01,z-8.01,-1,1,1)}
+    if (side=1) {text="East (X)" /*d3d_draw_wall(x+8.01,y-8.01,z-8.01,x+8.01,y+8.01,z+8.01,-1,1,1)*/}
+    else if (side=2) {text="West (-X)" /*d3d_draw_wall(x-8.01,y-8.01,z-8.01,x-8.01,y+8.01,z+8.01,-1,1,1)*/}
+    else if (side=3) {text="South (Y)" /*d3d_draw_wall(x-8.01,y+8.01,z-8.01,x+8.01,y+8.01,z+8.01,-1,1,1)*/}
+    else if (side=4) {text="North (-Y)" /*d3d_draw_wall(x-8.01,y-8.01,z-8.01,x+8.01,y-8,z+8.01,-1,1,1)*/}
+    else if (side=5) {text="Above (Z)" /*d3d_draw_floor(x-8.01,y-8.01,z+8.01,x+8.01,y+8,z+8.01,-1,1,1)*/}
+    else if (side=6) {text="Below (-Z)" /*d3d_draw_floor(x-8.01,y-8.01,z-8.01,x+8.01,y+8.01,z-8.01,-1,1,1)*/}
 }
+
+//nearest test
+/*with(d3d_instance_nearest(targetx[1]*blocksize,targety[1]*blocksize,targetz[1]*blocksize,obj_box))
+{
+    draw_set_color(c_blue)
+    d3d_draw_block(x-9,y-9,z-9,x+9,y+9,z+9,sprite_get_texture(spr_alpha,0),1,1)
+}*/
+
 
 // Draw some text.
 d3d_set_projection_ortho(0,0,view_wview,view_hview,0)
 d3d_set_hidden(0)
 draw_set_color(c_black)
 //if (text!="") draw_text(2,2,"Touching side: "+text)
-if obj_camera.side &gt; 0 draw_text(2,2,"Mouse on")
+//if obj_camera.side &gt; 0 draw_text(2,2,"Mouse on")
+draw_text(10,10,"blocks: " + string(instance_number(obj_box)) + " / " + string(blocks))
+draw_text(10,30,"score: "+string(score))
 d3d_set_hidden(1)
 d3d_set_lighting(1)
 
@@ -208,6 +298,22 @@ room_caption="FPS: "+string(fps)
 </string>
           </argument>
         </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="32">
+      <action>
+        <libid>1</libid>
+        <id>223</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_current_room</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
       </action>
     </event>
   </events>
@@ -219,8 +325,5 @@ room_caption="FPS: "+string(fps)
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
-  <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
-  <PhysicsObjectAwake>-1</PhysicsObjectAwake>
-  <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints/>
 </object>

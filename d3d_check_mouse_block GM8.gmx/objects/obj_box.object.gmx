@@ -26,8 +26,68 @@
           <argument>
             <kind>1</kind>
             <string>z = 0
+//x = 0
+//y = 0
 side = 0
 text = 0
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>301</id>
+        <kind>0</kind>
+        <userelative>-1</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_set_alarm</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>0</kind>
+            <string>1</string>
+          </argument>
+          <argument>
+            <kind>4</kind>
+            <string>0</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//show_message("plaaced")
+for(i = 0; i &lt; obj_camera.targets; i += 1)
+{
+    //show_message(string(x) + " " + string(y) + " " +string(z) + " | " + string(obj_camera.targetx[i]) + " " + string(obj_camera.targety[i]) + " " +string(obj_camera.targetz[i]) + " ")
+    if x = obj_camera.targetx[i]*blocksize and y = obj_camera.targety[i]*blocksize and z = obj_camera.targetz[i]*blocksize
+    {
+        obj_camera.target[i] = true
+        //show_message('got one')
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -42,8 +102,5 @@ text = 0
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
-  <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
-  <PhysicsObjectAwake>-1</PhysicsObjectAwake>
-  <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints/>
 </object>
