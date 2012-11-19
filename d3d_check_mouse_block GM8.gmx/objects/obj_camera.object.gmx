@@ -51,6 +51,9 @@ prevy=mouse_y
 
 side = 0
 text = ''
+
+initzoomdis = 0
+zoomdis = 0
 </string>
           </argument>
         </arguments>
@@ -125,6 +128,22 @@ if finished = true
 
 prevx=mouse_x
 prevy=mouse_y
+
+//zoom
+//for(i = 0; i &lt;=2; i+=1){
+if YoYo_MouseCheckButtonPressed(1,mb_left)// &amp;&amp; collision_point(YoYo_MouseX(i),YoYo_MouseY(i),obj_arrow_right,0,0)){
+{
+   initzoomdis = point_distance(YoYo_MouseX(0),YoYo_MouseY(0),YoYo_MouseX(1),YoYo_MouseY(1))
+}
+
+if YoYo_MouseCheckButton(1,mb_left) &amp;&amp;YoYo_MouseCheckButton(0,mb_left)
+{
+    drag = 0
+    zoomdis = camzoom + point_distance(YoYo_MouseX(0),YoYo_MouseY(0),YoYo_MouseX(1),YoYo_MouseY(1)) - initzoomdis
+    initzoomdis = point_distance(YoYo_MouseX(0),YoYo_MouseY(0),YoYo_MouseX(1),YoYo_MouseY(1))
+    camzoom = min(1000,max(10,zoomdis))
+}
+//}
 </string>
           </argument>
         </arguments>
@@ -220,10 +239,10 @@ zfrom=sin(degtorad(camanglez))*camzoom
 // Set light and projection, with a FOV of 60.
 draw_set_color(c_white)
 draw_set_alpha(1)
-d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,view_wview/view_hview,1,32000)
+d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,1920/1280,1,32000)
 d3d_light_define_point(0,xfrom,yfrom,zfrom,2000,c_white)
 
-//draw grid
+
 
 clicked = noone
 side = 0
@@ -250,7 +269,7 @@ draw_set_alpha(1)
 //targets
 for(i = 0; i &lt; targets; i += 1)
 {
-    draw_set_color(c_black)
+    draw_set_color(c_white)
     if target[i] = false
         d3d_draw_block(targetx[i]*blocksize-8,targety[i]*blocksize-8,
                         targetz[i]*blocksize-8,targetx[i]*blocksize+8,
@@ -316,6 +335,22 @@ room_caption="FPS: "+string(fps)
         <isnot>0</isnot>
       </action>
     </event>
+    <event eventtype="9" enumb="27">
+      <action>
+        <libid>1</libid>
+        <id>332</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_end_game</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+      </action>
+    </event>
   </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
@@ -325,5 +360,8 @@ room_caption="FPS: "+string(fps)
   <PhysicsObjectGroup>0</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>0.100000001490116</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0.100000001490116</PhysicsObjectAngularDamping>
+  <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
+  <PhysicsObjectAwake>-1</PhysicsObjectAwake>
+  <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints/>
 </object>
