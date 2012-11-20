@@ -1,0 +1,2 @@
+kind menu_new
+function menu_new()

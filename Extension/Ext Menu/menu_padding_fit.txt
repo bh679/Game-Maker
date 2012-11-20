@@ -1,0 +1,6 @@
+kind menu_padding_fit
+function menu_padding_fit()
+kind menu_padding_fit
+function menu_padding_fit(val1:string;val2:string):ds_map
+hfunction 
+
