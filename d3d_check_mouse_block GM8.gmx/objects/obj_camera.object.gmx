@@ -52,12 +52,17 @@ prevy=mouse_y
 side = 0
 text = ''
 
+<<<<<<< HEAD
 exitmenu = menu_new()
 menu_item_add(exitmenu,"X");
 menu_font(exitmenu,font_UI,c_white,0.9)
 menu_selectbox(exitmenu,c_white,0.5)
 menu_padding(exitmenu,menu_get_hpadding(exitmenu),24*2)
 menu_position(exitmenu, 740,0)
+=======
+initzoomdis = 0
+zoomdis = 0
+>>>>>>> origin/master
 </string>
           </argument>
         </arguments>
@@ -133,10 +138,28 @@ if finished = true
 prevx=mouse_x
 prevy=mouse_y
 
+<<<<<<< HEAD
 if (os_type != os_ios and os_type != os_browser) and menu_item_clicked(exitmenu,"X") || keyboard_check(vk_escape)
 {
     game_end()
 }
+=======
+//zoom
+//for(i = 0; i &lt;=2; i+=1){
+if YoYo_MouseCheckButtonPressed(1,mb_left)// &amp;&amp; collision_point(YoYo_MouseX(i),YoYo_MouseY(i),obj_arrow_right,0,0)){
+{
+   initzoomdis = point_distance(YoYo_MouseX(0),YoYo_MouseY(0),YoYo_MouseX(1),YoYo_MouseY(1))
+}
+
+if YoYo_MouseCheckButton(1,mb_left) &amp;&amp;YoYo_MouseCheckButton(0,mb_left)
+{
+    drag = 0
+    zoomdis = camzoom + point_distance(YoYo_MouseX(0),YoYo_MouseY(0),YoYo_MouseX(1),YoYo_MouseY(1)) - initzoomdis
+    initzoomdis = point_distance(YoYo_MouseX(0),YoYo_MouseY(0),YoYo_MouseX(1),YoYo_MouseY(1))
+    camzoom = min(1000,max(10,zoomdis))
+}
+//}
+>>>>>>> origin/master
 </string>
           </argument>
         </arguments>
@@ -233,10 +256,10 @@ zfrom=sin(degtorad(camanglez))*camzoom
 // Set light and projection, with a FOV of 60.
 draw_set_color(c_white)
 draw_set_alpha(1)
-d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,view_wview/view_hview,1,32000)
+d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,1920/1280,1,32000)
 d3d_light_define_point(0,xfrom,yfrom,zfrom,2000,c_white)
 
-//draw grid
+
 
 clicked = noone
 side = 0
@@ -328,6 +351,22 @@ d3d_set_lighting(1)
         <useapplyto>0</useapplyto>
         <exetype>1</exetype>
         <functionname>action_current_room</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+      </action>
+    </event>
+    <event eventtype="9" enumb="27">
+      <action>
+        <libid>1</libid>
+        <id>332</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_end_game</functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>

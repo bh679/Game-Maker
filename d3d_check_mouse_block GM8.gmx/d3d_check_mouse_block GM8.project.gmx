@@ -11,7 +11,9 @@
     <sprite>sprites\spr_outline</sprite>
     <sprite>sprites\spr_alpha</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\background_stars</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\d3d_instance_nearest.gml</script>
@@ -24,6 +26,7 @@
     <script>scripts\calcOptBlocks.gml</script>
   </scripts>
   <fonts name="fonts">
+<<<<<<< HEAD
     <font>fonts\font_default</font>
     <font>fonts\font_Trebuchet_MS</font>
     <font>fonts\font_UI</font>
@@ -31,6 +34,12 @@
   <objects name="objects">
     <object>objects\obj_menu</object>
     <object>objects\obj_how_to</object>
+=======
+    <font>fonts\font0</font>
+  </fonts>
+  <objects name="objects">
+    <object>objects\splash</object>
+>>>>>>> origin/master
     <object>objects\obj_camera</object>
     <object>objects\obj_box</object>
   </objects>

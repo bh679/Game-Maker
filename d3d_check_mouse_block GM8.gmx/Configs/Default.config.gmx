@@ -94,7 +94,11 @@
   <option_ios_advertising_type>iAds</option_ios_advertising_type>
   <option_ios_app_id></option_ios_app_id>
   <option_ios_build_version>0</option_ios_build_version>
+<<<<<<< HEAD
   <option_ios_certificate>&lt; Press refresh to fetch certificate list from Mac&gt;</option_ios_certificate>
+=======
+  <option_ios_certificate>iPhone Developer</option_ios_certificate>
+>>>>>>> origin/master
   <option_ios_device_type>3</option_ios_device_type>
   <option_ios_display_name>d3d_check_mouse_block GM8</option_ios_display_name>
   <option_ios_flurry_enable>0</option_ios_flurry_enable>
@@ -110,8 +114,13 @@
   <option_ios_minor_version>0</option_ios_minor_version>
   <option_ios_orient_landscape>true</option_ios_orient_landscape>
   <option_ios_orient_portrait>true</option_ios_orient_portrait>
+<<<<<<< HEAD
   <option_ios_orientation>2</option_ios_orientation>
   <option_ios_provisioning>&lt; Press refresh to fetch provisioning list from Mac&gt;</option_ios_provisioning>
+=======
+  <option_ios_orientation>1</option_ios_orientation>
+  <option_ios_provisioning>Brennan - Hattons</option_ios_provisioning>
+>>>>>>> origin/master
   <option_ios_splash_png>Configs\Default\ios\splash.png</option_ios_splash_png>
   <option_ios_texture_page>1024</option_ios_texture_page>
   <option_ios_use_test_ads>0</option_ios_use_test_ads>

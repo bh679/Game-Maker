@@ -8,7 +8,6 @@
   <sprites name="sprites"/>
   <backgrounds name="background"/>
   <paths name="paths"/>
-  <objects name="objects"/>
   <rooms name="rooms">
     <room>rooms\room0</room>
   </rooms>
