@@ -25,7 +25,7 @@
           <name>menu_font</name>
           <externalName>menu_font</externalName>
           <kind>2</kind>
-          <id>6</id>
+          <id>1</id>
           <help>menu_font(menu, font, color, alpha) //-1 for no font</help>
           <returnType>2</returnType>
           <argCount>4</argCount>
@@ -40,7 +40,7 @@
           <name>menu_get_valign</name>
           <externalName>menu_get_valign</externalName>
           <kind>2</kind>
-          <id>7</id>
+          <id>3</id>
           <help>menu_get_valign(menu) : valign</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -52,7 +52,7 @@
           <name>menu_get_halign</name>
           <externalName>menu_get_halign</externalName>
           <kind>2</kind>
-          <id>8</id>
+          <id>5</id>
           <help>menu_get_halign(menu) : halign</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -64,7 +64,7 @@
           <name>menu_get_fontcolor</name>
           <externalName>menu_get_fontcolor</externalName>
           <kind>2</kind>
-          <id>9</id>
+          <id>7</id>
           <help>menu_get_fontcolor(menu) : color</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -76,7 +76,7 @@
           <name>menu_get_font</name>
           <externalName>menu_get_font</externalName>
           <kind>2</kind>
-          <id>10</id>
+          <id>9</id>
           <help>menu_get_font(menu) : font</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -115,7 +115,7 @@
           <name>menu_get_hoverpadding</name>
           <externalName>menu_get_hoverpadding</externalName>
           <kind>2</kind>
-          <id>12</id>
+          <id>13</id>
           <help>menu_get_hoverpadding(menu) : padding</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -142,7 +142,7 @@
           <name>menu_get_hpadding</name>
           <externalName>menu_get_hpadding</externalName>
           <kind>2</kind>
-          <id>13</id>
+          <id>15</id>
           <help>menu_get_hpadding(menu) : padding</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -169,7 +169,7 @@
           <name>menu_get_margin</name>
           <externalName>menu_get_margin</externalName>
           <kind>2</kind>
-          <id>14</id>
+          <id>17</id>
           <help>menu_get_margin(menu) : margin</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -196,7 +196,7 @@
           <name>menu_get_selectbox_alpha</name>
           <externalName>menu_get_selectbox_alpha</externalName>
           <kind>2</kind>
-          <id>15</id>
+          <id>19</id>
           <help>menu_get_selectbox_alpha(menu) : alpha</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -223,7 +223,7 @@
           <name>menu_get_selectbox_color</name>
           <externalName>menu_get_selectbox_color</externalName>
           <kind>2</kind>
-          <id>16</id>
+          <id>21</id>
           <help>menu_get_selectbox_color(menu) : color</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -250,7 +250,7 @@
           <name>menu_get_selectfont_alpha</name>
           <externalName>menu_get_selectfont_alpha</externalName>
           <kind>2</kind>
-          <id>17</id>
+          <id>23</id>
           <help>menu_get_selectfont_alpha(menu) : alpha</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -277,7 +277,7 @@
           <name>menu_get_selectfont_color</name>
           <externalName>menu_get_selectfont_color</externalName>
           <kind>2</kind>
-          <id>18</id>
+          <id>25</id>
           <help>menu_get_selectfont_color(menu) : color</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -304,7 +304,7 @@
           <name>menu_get_size</name>
           <externalName>menu_get_size</externalName>
           <kind>2</kind>
-          <id>19</id>
+          <id>27</id>
           <help>menu_get_size(menu) : size</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -331,7 +331,7 @@
           <name>menu_get_vpadding</name>
           <externalName>menu_get_vpadding</externalName>
           <kind>2</kind>
-          <id>20</id>
+          <id>29</id>
           <help>menu_get_vpadding(menu) : padding</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -358,7 +358,7 @@
           <name>menu_get_x</name>
           <externalName>menu_get_x</externalName>
           <kind>2</kind>
-          <id>21</id>
+          <id>31</id>
           <help>menu_get_x(menu) : x</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -385,7 +385,7 @@
           <name>menu_get_y</name>
           <externalName>menu_get_y</externalName>
           <kind>2</kind>
-          <id>22</id>
+          <id>33</id>
           <help>menu_get_y(menu) : y</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -412,7 +412,7 @@
           <name>menu_background</name>
           <externalName>menu_background</externalName>
           <kind>2</kind>
-          <id>23</id>
+          <id>35</id>
           <help>menu_background(menu, color, alpha, outline)</help>
           <returnType>2</returnType>
           <argCount>4</argCount>
@@ -427,7 +427,7 @@
           <name>menu_background_padding</name>
           <externalName>menu_background_padding</externalName>
           <kind>2</kind>
-          <id>24</id>
+          <id>37</id>
           <help>menu_background_padding(menu, hpadding, vpadding)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -456,7 +456,7 @@
           <name>menu_header_font</name>
           <externalName>menu_headerfont</externalName>
           <kind>2</kind>
-          <id>25</id>
+          <id>39</id>
           <help>menu_header_font(menu, font, color, alpha)</help>
           <returnType>2</returnType>
           <argCount>4</argCount>
@@ -471,7 +471,7 @@
           <name>menu_header_align</name>
           <externalName>menu_header_align</externalName>
           <kind>2</kind>
-          <id>26</id>
+          <id>41</id>
           <help>menu_header_align(menu, halign)</help>
           <returnType>2</returnType>
           <argCount>2</argCount>
@@ -484,7 +484,7 @@
           <name>menu_header_padding</name>
           <externalName>menu_header_padding</externalName>
           <kind>2</kind>
-          <id>27</id>
+          <id>43</id>
           <help>menu_header_padding(menu, hpadding, vpadding)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -498,7 +498,7 @@
           <name>menu_get_header_font</name>
           <externalName>menu_get_header_font</externalName>
           <kind>2</kind>
-          <id>28</id>
+          <id>45</id>
           <help>menu_get_header_font(menu) : font</help>
           <returnType>2</returnType>
           <argCount>1</argCount>
@@ -525,7 +525,7 @@
           <name>menu_item_clicked</name>
           <externalName>menu_item_clicked</externalName>
           <kind>2</kind>
-          <id>29</id>
+          <id>47</id>
           <help>menu_item_clicked(menu, item) : bool</help>
           <returnType>2</returnType>
           <argCount>2</argCount>
@@ -538,7 +538,7 @@
           <name>menu_item_clicked_pos</name>
           <externalName>menu_item_clicked_pos</externalName>
           <kind>2</kind>
-          <id>30</id>
+          <id>49</id>
           <help>menu_item_clicked_pos(menu, position) : bool</help>
           <returnType>2</returnType>
           <argCount>2</argCount>
@@ -551,7 +551,7 @@
           <name>menu_item_add</name>
           <externalName>menu_item_add</externalName>
           <kind>2</kind>
-          <id>31</id>
+          <id>51</id>
           <help>menu_item_add(menu, item)</help>
           <returnType>2</returnType>
           <argCount>2</argCount>
@@ -564,7 +564,7 @@
           <name>menu_item_insert</name>
           <externalName>menu_item_insert</externalName>
           <kind>2</kind>
-          <id>32</id>
+          <id>53</id>
           <help>menu_item_insert(menu, position, item)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -578,7 +578,7 @@
           <name>menu_item_replace</name>
           <externalName>menu_item_replace</externalName>
           <kind>2</kind>
-          <id>33</id>
+          <id>55</id>
           <help>menu_item_replace(menu, current_item, new_item)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -592,7 +592,7 @@
           <name>menu_item_replace_pos</name>
           <externalName>menu_item_replace_pos</externalName>
           <kind>2</kind>
-          <id>34</id>
+          <id>57</id>
           <help>menu_item_replace_pos(menu, position, item)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -606,7 +606,7 @@
           <name>menu_padding_fit</name>
           <externalName>menu_padding_fit</externalName>
           <kind>2</kind>
-          <id>35</id>
+          <id>59</id>
           <help>menu_padding_fit(menu, string)</help>
           <returnType>2</returnType>
           <argCount>2</argCount>
@@ -619,7 +619,7 @@
           <name>menu_padding</name>
           <externalName>menu_padding</externalName>
           <kind>2</kind>
-          <id>36</id>
+          <id>61</id>
           <help>menu_padding(menu, hpadding, vpadding)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -633,7 +633,7 @@
           <name>MouseInBox</name>
           <externalName>MouseInBox</externalName>
           <kind>2</kind>
-          <id>37</id>
+          <id>63</id>
           <help>MouseInBox(x1, y1, x2, y2) : bool</help>
           <returnType>2</returnType>
           <argCount>4</argCount>
@@ -663,7 +663,7 @@
           <name>menu_selectbox</name>
           <externalName>menu_selectbox</externalName>
           <kind>2</kind>
-          <id>38</id>
+          <id>65</id>
           <help>menu_selectbox(menu, color, alpha)</help>
           <returnType>2</returnType>
           <argCount>-1</argCount>
@@ -673,7 +673,7 @@
           <name>menu_selectfont</name>
           <externalName>menu_selectfont</externalName>
           <kind>2</kind>
-          <id>39</id>
+          <id>67</id>
           <help>menu_selectfont(menu, color, alpha)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -702,7 +702,7 @@
           <name>menu_align</name>
           <externalName>menu_align</externalName>
           <kind>2</kind>
-          <id>40</id>
+          <id>69</id>
           <help>menu_align(menu, halign, valign)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -716,7 +716,7 @@
           <name>menu_position</name>
           <externalName>menu_position</externalName>
           <kind>2</kind>
-          <id>41</id>
+          <id>71</id>
           <help>menu_position(menu, x, y)</help>
           <returnType>2</returnType>
           <argCount>3</argCount>
@@ -730,7 +730,7 @@
           <name>menu_hoverpadding</name>
           <externalName>menu_hoverpadding</externalName>
           <kind>2</kind>
-          <id>42</id>
+          <id>73</id>
           <help>menu_hoverpadding(menu, padding)</help>
           <returnType>2</returnType>
           <argCount>2</argCount>
@@ -758,7 +758,7 @@
           <name>menu_new</name>
           <externalName>menu_new</externalName>
           <kind>2</kind>
-          <id>43</id>
+          <id>75</id>
           <help>menu_new() : menu</help>
           <returnType>2</returnType>
           <argCount>0</argCount>
@@ -783,7 +783,7 @@
           <name>draw_menu</name>
           <externalName>draw_menu</externalName>
           <kind>2</kind>
-          <id>44</id>
+          <id>77</id>
           <help>draw_menu(menu) </help>
           <returnType>2</returnType>
           <argCount>1</argCount>

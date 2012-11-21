@@ -83,6 +83,14 @@ menu_position(exitmenu, 740,0)
             <string>// Zoom with mouse wheel.
 if (mouse_wheel_up() &amp;&amp; camzoom&gt;10) camzoom/=1.2
 if (mouse_wheel_down() &amp;&amp; camzoom&lt;1000) camzoom*=1.2
+
+//zoom with bar
+if MouseInBox(view_wview/3, view_hview - 50, view_wview - view_wview/3, view_hview) and mouse_check_button(mb_left)
+{
+    camzoom = ((mouse_x - view_wview/3)/(view_wview/3))*990 + 10
+    drag = 0
+}
+
 if (mouse_check_button_released(mb_left) &amp;&amp; side &gt; 0 &amp;&amp; point_distance(camdownanglez,camdownangle,camanglez,camangle) &lt; 1)
 {
     newx = 0
@@ -137,6 +145,8 @@ if (os_type != os_ios and os_type != os_browser) and menu_item_clicked(exitmenu,
 {
     game_end()
 }
+
+
 </string>
           </argument>
         </arguments>
@@ -233,7 +243,7 @@ zfrom=sin(degtorad(camanglez))*camzoom
 // Set light and projection, with a FOV of 60.
 draw_set_color(c_white)
 draw_set_alpha(1)
-d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,view_wview/view_hview,1,32000)
+d3d_set_projection_ext(xfrom,yfrom,zfrom,0,0,0,0,0,1,60,1920/1280,1,32000)
 d3d_light_define_point(0,xfrom,yfrom,zfrom,2000,c_white)
 
 //draw grid
@@ -306,8 +316,13 @@ draw_set_color(c_white)
 //if (text!="") draw_text(2,2,"Touching side: "+text)
 //if obj_camera.side &gt; 0 draw_text(2,2,"Mouse on")
 draw_text(10,10,"blocks: " + string(instance_number(obj_box)) + " / " + string(blocks))
-draw_text(10,50,"Levels Completed: "+string(score))
+draw_text(10,50,"Levels Completed: "+string(score) + "mouse: " + string(mouse_x) + " " + string(mouse_y))
 if os_type != os_ios and os_type != os_browser draw_menu(exitmenu)
+//slider
+draw_rectangle(view_wview/3, view_hview - 50, view_wview - view_wview/3, view_hview,true)
+zoom_x = ((camzoom - 10)/990)*(view_wview/3) + view_wview/3// = mouse_x - view_wview/3
+draw_rectangle(max(zoom_x-10,view_wview/3-25), view_hview - 50, min(view_wview - view_wview/3+10,zoom_x+25), view_hview,false)
+
 d3d_set_hidden(1)
 d3d_set_lighting(1)
 
