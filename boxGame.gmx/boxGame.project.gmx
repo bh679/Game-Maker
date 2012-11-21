@@ -9,6 +9,7 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_outline</sprite>
+    <sprite>sprites\spr_logo</sprite>
     <sprite>sprites\spr_alpha</sprite>
   </sprites>
   <backgrounds name="background"/>
